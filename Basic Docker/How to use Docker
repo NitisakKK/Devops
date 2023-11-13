@@ -20,3 +20,24 @@ sudo docker stop ชื่อ id // คำสั่งนี้จะหยุ�
 ถ้ามันขึ้นตรง status ว่า Exited คือปิดไปแล้ว
 
 sudo docker rm ชื่อ // ลบ docker ออก
+
+// คำสั่งรัน Docker ที่เราสร้าง Image เสร็จแล้ว
+sudo docker run --detach --restart unless-stopped --name=mysql-server --publish 3306:3306 mysql-docker:0.1 --default-authentication-plugin=mysql_native_password
+
+// เราจะเอา mysql ไปรวมกับ phpmyadmin (link)
+sudo docker run --detach --restart unless-stopped --name phpmyadmin --publish 8080:80 --link mysql-server:db phpmyadmin
+ต่อไปสร้าง file เข้าไปใน folder ที่เรา clone มาและใช้ nano ในการเขียน ไฟล์
+FROM node:21-alpine3.17
+WORKDIR /app
+
+COPY . .
+RUN npm ci 
+RUN npm run build
+
+EXPOSE 3000
+CMD ["npx","serve","build"]
+      ------next step ต่อไป->
+sudo docker build --tag react-basic:0.1 . // เพื่อที่เราจะรัน
+
+sudo docker run --detach --name react-basic --publish 3000:3000 react-basic:0.1 
+จากนั้นก็เข้าไปที่ ip:3000 เราจะได้เว็บที่เข้า run
