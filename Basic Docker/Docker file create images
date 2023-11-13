@@ -1,0 +1,30 @@
+source : https://docs.docker.com/engine/reference/builder/
+
+สร้าง file แรกชื่อ Dockerfile
+FROM mysql:8.2.0 // ระบุว่ามาจาก mysql 8.2.0
+WORKDIR /app // สร้าง folder เพื่อที่จะเก็บขอมูลไว้ใน folder, folder ทำงาน
+
+MAINTAINER nitisak.kangk@mail.kmutt.ac.th // ผู้สร้าง
+ENV MYSQL_ROOT_PASSWORD 123456za    
+ENV MYSQL_USER Nitisak
+ENV MYSQL_PASSWORD 123456za
+ADD database.sql /docker-entrypoint-initdb.d // เรา file เอาเข้าไปเก็บ
+
+EXPOSE 3306 // เราจะระบุให้ port ไหนทำงานได้ mysql รันอยู่ port 3306
+
+สร้าง database.sql เพื่อที่จะเก็บคำสั่ง sql
+GRANT ALL PRIVILEGES ON *.* TO 'nitisak'@'%' // ให้ permission ทุกคน
+  CREATE DATABASE test;
+USE test;
+CREATE TABLE user (
+	id INTEGER NOT NULL AUTO_INCREMENT,
+	email VARCHAR(255) NOT NULL,
+	fullname VARCHAR(255) NULL,
+	PRIMARY KEY (id)
+);
+
+INSERT INTO user(email,fullname)
+	VALUES('nitisak.kangk@kmutt.ac.th','nitisak kangkhan')
+
+
+sudo docker build --tag mysql-docker:0.1 . // . คือระบุว่าเอาเป็น current path
