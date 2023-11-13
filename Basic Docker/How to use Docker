@@ -1,2 +1,22 @@
 sudo docker --help เอาไว้ดูว่ามันสามารถทำอะไรได้บ้าง
 // pull คือการไปดึงข้อมูลมา
+sudo docker pull ชื่อของตัวที่จะไป pull :เวอร์ชั่น
+
+sudo docker images เพื่อจะดูว่ามี images อะไรบ้าง
+
+ถ้าเราจะ run docker เราจะใช้ คำสั่งรัน
+-Option ที่ใช้บ่อยๆ
+--detach => Run container in background and print container ID
+--publish มี list, -all => Publish a container's port(s) to the host
+sudo docker run --name some-nginx -v /some/content:/usr/share/nginx/html:ro -d nginx
+เราจะได้ตัวนี้ออกมาแต่ละตัวจะไม่เหมือนกัน เช่น 616df3fdb22d7f7b9ea4d5f20e44d56c11fe4c79e2bea8360b17f87fe45ea06d
+sudo docker run --detach --publish 8080:80 --name nginx-server nginx:1.23.3
+
+Nginx run port 80
+
+sudo docker ps คือสำสั่งที่จะดูว่ามี content runing
+
+sudo docker stop ชื่อ id // คำสั่งนี้จะหยุดการทำงานของ docker ตามชื่อที่ระบุ
+ถ้ามันขึ้นตรง status ว่า Exited คือปิดไปแล้ว
+
+sudo docker rm ชื่อ // ลบ docker ออก
