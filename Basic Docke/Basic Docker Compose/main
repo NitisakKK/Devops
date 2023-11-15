@@ -1,0 +1,45 @@
+source https://docs.docker.com/compose/features-uses/
+example config
+----
+ services:
+  web:
+    build: .
+    ports:
+      - "8000:5000"
+    volumes:
+      - .:/code
+      - logvolume01:/var/log
+    depends_on:
+      - redis
+  redis:
+    image: redis
+volumes:
+  logvolume01: {}
+----
+
+version: "3.9"
+services:
+  db:
+    build: .
+    ports:
+      - "3306:3306"
+    networks:
+      - app-network
+
+  phpmyadmin:
+      image: phpmyadmin/phpmyadmin
+      environment:
+        PMA_HOST: db
+      ports:
+        - "8080:80"
+      networks:
+        - app-network
+
+networks:
+  app-network:
+    driver: bridge
+------------
+
+sudo docker compose up คือการให้ compose บิ้ว run
+sudo docker down compose คือการหยุด container โดยจะลบไปเลย
+เราสามารถใส่ restart: always ใน compose ได้โดยจะต่อตรง images หรือ ต่อ build ก็ได้
