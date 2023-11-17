@@ -1,0 +1,8 @@
+// Create on localhost/phpmyadmin
+CREATE TABLE `USERS` (
+    ID INT PRIMARY KEY AUTO_INCREMENT,
+    NAME VARCHAR(255),
+    EMAIL VARCHAR(255)
+    );
+INSERT INTO USERS (NAME,EMAIL) VALUES ('Nitisak','nitisak.kangk@kmutt.ac.th');
+INSERT INTO USERS (NAME,EMAIL) VALUES ('John','john@gmail.com')
